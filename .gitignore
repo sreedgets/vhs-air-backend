@@ -1,0 +1,16 @@
+# main files
+/node_modules
+.vscode/
+#report xlsx
+/uploads/report
+
+# project config
+.env
+.eslintignore
+
+# build
+dist
+
+# logs
+errors.json
+output.json
