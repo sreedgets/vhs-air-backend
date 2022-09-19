@@ -27,6 +27,6 @@ app.use(ErrorHandler);
 
 app.get('*', (req, res) => {
   res.sendFile(
-    path.resolve(__dirname, '../Sensor-web/build', 'index.html'),
+    path.resolve(__dirname, '../vhs-air-frontend/build', 'index.html'),
   );
 });
