@@ -13,7 +13,7 @@ app.use(cookieParser());
 app.use(cors());
 
 app.use(
-  express.static(path.resolve(__dirname, '../Sensor-web/build')),
+  express.static(path.resolve(__dirname, '../vhs-air-frontend/build')),
 );
 
 uploadFile();
