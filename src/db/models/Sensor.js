@@ -39,11 +39,7 @@ const sensorSchema = new Schema({
     type: String,
     required: true,
   },
-  showSensor: {
-    type: String,
-    required: true,
-  },
-  keySensor: {
+  index: {
     type: String,
     required: true,
   },

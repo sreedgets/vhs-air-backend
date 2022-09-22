@@ -9,6 +9,11 @@ module.exports = async () => {
     cron.schedule("0 0 3,7,12,17,22 * * *", async () => {
         const dateNow = new Date();
         const date = getDate(dateNow);
+
+        const purpleAirSensors = await axios.get('https://api.purpleair.com/v1/groups/1317/members', {headers: {"X-API-KEY" : "2F769BC2-3449-11ED-B5AA-42010A800006"}, params: {fields: "name,humidity,temperature,pm2.5"}});
+        const { data } = purpleAirSensors.data;
+
+        /* 
         const sensors = await sensorServices.getFullSensorsData();
         let connSensors = new Map();
         for (let sensor of sensors) {
@@ -16,8 +21,36 @@ module.exports = async () => {
             let { keySensor } = sensor;
             connSensors.set(showSensor, keySensor);
         }
+        */
+        data.forEach(async sensor => {
+            try {
+                const index = sensor[0];
+                const name = sensor[1];
+                const humidity = sensor[2];
+                const temp = sensor[3];
+                const aqi = aqiFromPM(sensor[4]);
+                const aqiDescription = getAQIDescription(aqi);
+                const aqiMessage = getAQIMessage(aqi);
+                const mongoSensor = await Sensor.findOne({ index: index});
 
-        connSensors.forEach(async (value, key, map) => {
+                mongoSensor.lastRecord = date;
+                mongoSensor.dataSensor.push({
+                    aqi: aqi,
+                    description: aqiDescription,
+                    message: aqiMessage,
+                    temperature: temp,
+                    humidity,
+                    date
+                });
+
+                await mongoSensor.save();
+            } catch {
+                console.error(error);
+            }
+            
+        });
+
+        /* connSensors.forEach(async (value, key, map) => {
             try {
             let sensor = await Sensor.findOne({ showSensor: key });
             const { data } = await axios.get(`https://www.purpleair.com/json?key=${value}&show=${key}`);
@@ -98,6 +131,6 @@ module.exports = async () => {
             } catch (error) {
             console.error(error);
             }
-        })
+        }) */
     }, { scheduled: true, timezone: "America/Regina" });
 }
