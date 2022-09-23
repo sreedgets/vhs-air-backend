@@ -11,7 +11,7 @@ module.exports = async () => {
         const date = getDate(dateNow);
 
         const purpleAirSensors = await axios.get('https://api.purpleair.com/v1/groups/1317/members', {headers: {"X-API-KEY" : "2F769BC2-3449-11ED-B5AA-42010A800006"}, params: {fields: "name,humidity,temperature,pm2.5"}});
-        const { data } = purpleAirSensors.data;
+        const { data } = await purpleAirSensors.data;
 
         /* 
         const sensors = await sensorServices.getFullSensorsData();
