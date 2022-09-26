@@ -14,3 +14,7 @@ dist
 # logs
 errors.json
 output.json
+
+.circleci
+
+/backups

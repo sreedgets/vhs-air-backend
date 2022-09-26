@@ -31,7 +31,7 @@ module.exports = async () => {
                 const aqi = aqiFromPM(sensor[4]);
                 const aqiDescription = getAQIDescription(aqi);
                 const aqiMessage = getAQIMessage(aqi);
-                const mongoSensor = await Sensor.findOne({ index: index});
+                let mongoSensor = await Sensor.findOne({ index: index});
 
                 mongoSensor.lastRecord = date;
                 mongoSensor.dataSensor.push({
