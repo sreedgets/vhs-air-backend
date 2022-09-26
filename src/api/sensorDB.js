@@ -6,7 +6,7 @@ const sensorServices = require("../services/sensorServices");
 const { Sensor } = require("../db");
 const getDate = require("../helpers/getDate")
 module.exports = async () => {
-    cron.schedule("0 0 3,7,12,17,22 * * *", async () => {
+    cron.schedule(" 0 3,7,12,17,22 * * *", async () => {
         const dateNow = new Date();
         const date = getDate(dateNow);
 
