@@ -22,8 +22,7 @@ const dataSchema = new Schema({
     default: "-",
   },
   date: {
-    type: String,
-    required: true,
+    type: String
   },
   canEdit: {
     type: Boolean,
