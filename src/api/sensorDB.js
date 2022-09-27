@@ -44,10 +44,9 @@ module.exports = async () => {
                 });
 
                 await mongoSensor.save();
-            } catch {
+            } catch(error) {
                 console.error(error);
             }
-            
         });
 
         /* connSensors.forEach(async (value, key, map) => {
