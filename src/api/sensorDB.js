@@ -6,22 +6,14 @@ const sensorServices = require("../services/sensorServices");
 const { Sensor } = require("../db");
 const getDate = require("../helpers/getDate")
 module.exports = async () => {
-    cron.schedule(" 0 3,7,12,17,22 * * *", async () => {
+/*     cron.schedule(" 0 3,7,12,17,22 * * *", async () => { */
+    cron.schedule(" */5 * * * *", async () => {
         const dateNow = new Date();
         const date = getDate(dateNow);
 
         const purpleAirSensors = await axios.get('https://api.purpleair.com/v1/groups/1317/members', {headers: {"X-API-KEY" : "2F769BC2-3449-11ED-B5AA-42010A800006"}, params: {fields: "name,humidity,temperature,pm2.5"}});
-        const { data } = await purpleAirSensors.data;
+        const { data } = purpleAirSensors.data;
 
-        /* 
-        const sensors = await sensorServices.getFullSensorsData();
-        let connSensors = new Map();
-        for (let sensor of sensors) {
-            let { showSensor } = sensor;
-            let { keySensor } = sensor;
-            connSensors.set(showSensor, keySensor);
-        }
-        */
         data.forEach(async sensor => {
             try {
                 const index = sensor[0];
@@ -42,7 +34,7 @@ module.exports = async () => {
                     humidity,
                     date
                 });
-
+                console.log(sensor);
                 await mongoSensor.save();
             } catch(error) {
                 console.error(error);
