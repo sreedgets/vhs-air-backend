@@ -66,7 +66,6 @@ module.exports = {
         dataSensor: [],
       })
       let j = -1;
-      //let j = 0;
       let started = false;
       let bufferDate = null;
       for (let dataS of sensor.dataSensor) {
