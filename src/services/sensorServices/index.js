@@ -90,7 +90,7 @@ module.exports = {
             j++;
             started = true;
             bufferDate = new Date(now);
-            const date = dataS.date.toLocaleString("en-US");
+            const date = dataS.date.toLocaleString("en-US", {timeZone: 'America/Chicago'});
             result[i].dataSensor.push({
               DATE: date.split(",")[0],
               data: [dataS],
