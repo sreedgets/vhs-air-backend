@@ -184,6 +184,7 @@ module.exports = {
     try {
       let { page, size } = req.query;
       let { from, to } = req.body;
+      console.log(from, to);
       if (!from) {
         from = new Date(0);
       }
